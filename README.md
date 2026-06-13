@@ -1,8 +1,6 @@
 # Event-Driven EdTech Learning Platform
 
-# Live Application
-
-## Learning Platform
+## Live Demo
 
 - https://edtech.aavishkar.online
 
