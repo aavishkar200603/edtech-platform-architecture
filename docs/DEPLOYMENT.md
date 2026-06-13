@@ -2,13 +2,69 @@
 
 ---
 
-# CI/CD Overview
+# Overview
 
-This project uses Jenkins-based multi-repository CI/CD pipelines integrated with Docker, DockerHub, and Ansible for automated deployment orchestration.
+This document describes the deployment architecture, CI/CD automation, infrastructure orchestration, runtime environment, monitoring integrations, and deployment workflows used by the Event-Driven EdTech Learning Platform.
+
+The platform is deployed on AWS EC2 using Docker Compose multi-container orchestration, Nginx reverse proxying, HTTPS termination, Jenkins CI/CD pipelines, and Ansible deployment automation.
 
 ---
 
-## Jenkins Pipeline Ecosystem
+# Deployment Architecture
+
+## Runtime Environment
+
+The application is deployed as a multi-container Docker Compose stack running on AWS EC2.
+
+Containers include:
+
+- Frontend
+- Backend
+- Worker
+- Redis
+- Nginx Reverse Proxy
+
+![Docker Runtime](../assets/deployment/docker_containers_all.png)
+
+---
+
+## Live Deployment
+
+- https://edtech.aavishkar.online
+
+![Live Deployment](../assets/deployment/live-app.png)
+
+---
+
+# Deployment Workflow
+
+![CI/CD Workflow](../assets/architecture/cicd-flow.svg)
+
+---
+
+## Deployment Flow
+
+```text
+Developer Push
+      ↓
+GitHub Webhook
+      ↓
+Jenkins Pipeline
+      ↓
+Docker Image Build
+      ↓
+DockerHub Push
+      ↓
+Infrastructure Deployment Trigger
+      ↓
+Ansible Playbook
+      ↓
+AWS EC2 Deployment
+```
+
+---
+
+# Jenkins Pipeline Ecosystem
 
 The platform uses multiple Jenkins pipelines for frontend, backend, worker, infrastructure deployment, and AWS-native migration workflows.
 
@@ -21,12 +77,6 @@ These pipelines automate:
 - AWS-native migration deployments
 
 ![Jenkins Dashboard](../assets/jenkins/jenkins-dashboard.png)
-
----
-
-# Deployment Workflow
-
-![CI/CD Workflow](../assets/architecture/cicd-flow.svg)
 
 ---
 
@@ -66,20 +116,6 @@ The infrastructure deployment pipeline automates:
 
 ![Infra Pipeline](../assets/jenkins/infra-pipeline.png)
 
-# Monitoring and Alerting
-
-CloudWatch alarms and Amazon SNS notifications were integrated to monitor asynchronous Lambda traffic and operational activity.
-
-Implemented monitoring features include:
-
-* Lambda invocation monitoring
-* CloudWatch metric alarms
-* Amazon SNS email notifications
-* Event-processing visibility
-* Traffic threshold alerting
-
-These integrations demonstrate operational monitoring practices for cloud-native asynchronous systems.
-
 ---
 
 # Ansible Responsibilities
@@ -90,10 +126,27 @@ Ansible automates:
 - Runtime secret management
 - Container updates
 - Docker Compose deployment
+- Environment configuration
 
 ---
 
-# HTTPS Setup
+# Monitoring and Alerting
+
+CloudWatch alarms and Amazon SNS notifications were integrated to monitor asynchronous Lambda traffic and operational activity.
+
+Implemented monitoring features include:
+
+- Lambda invocation monitoring
+- CloudWatch metric alarms
+- Amazon SNS email notifications
+- Event-processing visibility
+- Traffic threshold alerting
+
+These integrations demonstrate operational monitoring practices for cloud-native asynchronous systems.
+
+---
+
+# HTTPS and Networking
 
 Configured:
 
@@ -101,27 +154,7 @@ Configured:
 - SSL certificate setup
 - Nginx reverse proxy
 - Elastic IP routing
-
-## Live Deployment
-
-- https://edtech.aavishkar.online
-
-![Live Deployment](../assets/deployment/live-app.png)
-
----
-
-# Docker Runtime
-
-The application runs using Docker Compose multi-container orchestration.
-
-Containers:
-
-- Frontend
-- Backend
-- Worker
-- Redis
-
-![Docker Runtime](../assets/deployment/docker_containers_all.png)
+- HTTPS enforcement
 
 ---
 
@@ -135,6 +168,13 @@ Uses:
 - Redis
 - Worker-based async processing
 
+Deployment stack:
+
+- Frontend
+- Backend
+- Worker
+- Redis
+
 ---
 
 ## sqs-lambda-migration Branch
@@ -144,6 +184,12 @@ Uses:
 - Amazon SQS
 - AWS Lambda
 - Serverless event processing
+
+Deployment stack:
+
+- Frontend
+- Backend
+- AWS-managed event processing
 
 ---
 
