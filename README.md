@@ -1,49 +1,95 @@
-# Event-Driven EdTech Platform with CI/CD and Cloud-Native Architecture
+# Event-Driven EdTech Learning Platform
 
-## Live Demo
+# Live Application
+
+## Learning Platform
 
 - https://edtech.aavishkar.online
 
 ![Live Application](assets/deployment/live-app.png)
 
+Features demonstrated:
+
+- Course browsing and enrollment
+- Instructor course management
+- Video learning experience
+- Progress tracking
+- Ratings and reviews
+- Analytics generation
+
 ---
 
 # Overview
 
-Production-style event-driven EdTech platform that demonstrates architectural evolution from self-managed asynchronous worker infrastructure toward AWS-managed cloud-native event processing systems.
+Full-stack EdTech learning platform built using React.js, Node.js, MongoDB, Redis, BullMQ, and Nginx.
 
-Version 1 implements BullMQ + Redis + dedicated workers for asynchronous processing.
+The platform enables instructors to publish courses and learners to consume educational content through course catalogs, video learning experiences, progress tracking, ratings, and analytics-driven insights.
 
-Version 2 migrates asynchronous workloads to Amazon SQS and AWS Lambda to demonstrate serverless event-driven architecture patterns and reduced operational overhead.
+The project demonstrates event-driven architecture patterns through both self-managed asynchronous processing using BullMQ and Redis as well as AWS-native event processing using Amazon SQS and AWS Lambda.
 
+---
+
+# Application Features
+
+- Course creation and publishing
+- Instructor dashboards
+- Student enrollment workflows
+- Video course consumption
+- Progress tracking
+- Course ratings and reviews
+- Analytics event collection
+- Background analytics processing
+- Responsive React.js user interface
+- JWT authentication and authorization
 
 ---
 
 # Key Highlights
 
-- Dockerized frontend and backend services
-- Jenkins-based CI/CD pipelines
-- Ansible deployment orchestration
-- Event-driven analytics processing
-- BullMQ + Redis background workers
-- AWS SQS + Lambda migration architecture
-- HTTPS with custom domain
-- CloudWatch + SNS operational alerting
-- Serverless analytics aggregation pipeline
-- Branch-aware deployments
-- Multi-repository DevOps workflows
+## Application Engineering
+
+- Course management workflows
+- Course catalog and content discovery
+- Instructor dashboards
+- Student enrollment experience
+- Progress tracking
+- Ratings and reviews
+- Analytics event generation
+- JWT authentication
+- Responsive React.js interfaces
+
+## Event-Driven Engineering
+
+- BullMQ + Redis workers
+- Retry handling
+- Priority queues
+- Background analytics processing
+- Analytics aggregation workflows
+- Asynchronous event pipelines
+
+## Cloud & DevOps Engineering
+
+- Jenkins CI/CD
+- Dockerized services
+- Ansible deployment automation
+- AWS SQS + Lambda migration
+- HTTPS and custom domain
+- CloudWatch monitoring
+- SNS alerting
 
 ---
 
 # Tech Stack
 
 ## Backend & Frontend
+
 - React.js
 - Node.js
 - Express.js
 - MongoDB
 
 ## DevOps
+
 - Docker
 - Docker Compose
 - Jenkins
@@ -51,6 +97,7 @@ Version 2 migrates asynchronous workloads to Amazon SQS and AWS Lambda to demons
 - Nginx
 
 ## AWS
+
 - EC2
 - IAM
 - SQS
@@ -60,12 +107,38 @@ Version 2 migrates asynchronous workloads to Amazon SQS and AWS Lambda to demons
 - SNS
 
 ## Async Processing
+
 - BullMQ
 - Redis
 
 ---
 
 # System Architecture
+
+## Application Architecture
+
+```text
+┌─────────────┐
+│    User     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ React Front │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────┐
+│ Node.js / Express   │
+└──────┬──────────────┘
+       │
+       ▼
+┌─────────────┐
+│   MongoDB   │
+└─────────────┘
+```
+
+---
 
 ## Self-Managed Event Architecture
 
@@ -84,7 +157,10 @@ Version 2 migrates asynchronous workloads to Amazon SQS and AWS Lambda to demons
 ![CI/CD Architecture](assets/architecture/cicd-flow.svg)
 
 ---
+
 # Repository Ecosystem
+
+The platform follows a multi-repository architecture separating application services, asynchronous processing components, cloud-native event consumers, and deployment infrastructure.
 
 | Repository | Purpose | Access |
 |------------|----------|---------|
