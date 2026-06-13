@@ -4,9 +4,62 @@
 
 # Overview
 
-This project demonstrates the evolution of an event-driven EdTech platform from a self-managed asynchronous processing architecture toward an AWS-native serverless architecture.
+This project demonstrates the architecture and evolution of a full-stack event-driven EdTech learning platform built using React.js, Node.js, MongoDB, Redis, BullMQ, and AWS cloud services.
 
-The system was designed to showcase modern DevOps workflows, event-driven backend engineering, CI/CD automation, infrastructure orchestration, and cloud-native migration strategies.
+The platform enables instructors to publish educational content and learners to consume courses through video learning experiences, progress tracking, ratings, reviews, and analytics-driven insights.
+
+The architecture showcases the evolution from self-managed asynchronous processing infrastructure toward AWS-native serverless event processing using Amazon SQS and AWS Lambda.
+
+The project also demonstrates modern CI/CD automation, infrastructure orchestration, deployment workflows, observability, and cloud-native migration strategies.
+
+---
+
+# Application Architecture
+
+## Core Application Flow
+
+```text
+┌─────────────┐
+│    User     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────┐
+│ React Frontend  │
+└──────┬──────────┘
+       │
+       ▼
+┌─────────────────┐
+│ Nginx Proxy     │
+└──────┬──────────┘
+       │
+       ▼
+┌─────────────────┐
+│ Node.js Backend │
+└──────┬──────────┘
+       │
+       ▼
+┌─────────────────┐
+│    MongoDB      │
+└─────────────────┘
+```
+
+---
+
+# Application Features
+
+The platform supports:
+
+- Course publishing workflows
+- Instructor dashboards
+- Student enrollment workflows
+- Video course consumption
+- Course ratings and reviews
+- Progress tracking
+- Analytics event generation
+- Background analytics processing
+- Responsive user experience
+- JWT-based authentication and authorization
 
 ---
 
@@ -20,8 +73,8 @@ The system was designed to showcase modern DevOps workflows, event-driven backen
 
 ## Components
 
-- Frontend Container
-- Backend API Container
+- React Frontend
+- Node.js Backend API
 - BullMQ Queue
 - Redis Queue Backend
 - Worker Service
@@ -35,7 +88,7 @@ The system was designed to showcase modern DevOps workflows, event-driven backen
 ```text
 User
    ↓
-Frontend
+React Frontend
    ↓
 Nginx Reverse Proxy
    ↓
@@ -52,6 +105,16 @@ MongoDB Analytics
 
 ---
 
+# Self-Managed Event Processing
+
+The first implementation uses BullMQ and Redis to process analytics and background workloads asynchronously.
+
+Backend APIs publish events into BullMQ queues while dedicated worker services consume and process queued jobs.
+
+This architecture demonstrates traditional event-driven backend design patterns using self-managed queue infrastructure.
+
+---
+
 # Key Features
 
 Implemented:
@@ -62,6 +125,7 @@ Implemented:
 - Analytics aggregation
 - Async workload execution
 - Queue-based event processing
+- Worker isolation
 - Dockerized service orchestration
 
 ---
@@ -76,6 +140,7 @@ Worker services consume queued jobs and perform:
 - Event aggregation
 - Background processing
 - Failure retries
+- Usage metric collection
 
 Redis acts as the queue backend for BullMQ event processing.
 
@@ -91,8 +156,8 @@ Redis acts as the queue backend for BullMQ event processing.
 
 ## Components
 
-- Frontend Container
-- Backend API
+- React Frontend
+- Node.js Backend API
 - Amazon SQS
 - AWS Lambda
 - CloudWatch
@@ -105,7 +170,7 @@ Redis acts as the queue backend for BullMQ event processing.
 ```text
 User
    ↓
-Frontend
+React Frontend
    ↓
 Nginx Reverse Proxy
    ↓
@@ -128,7 +193,7 @@ Backend APIs publish events to Amazon SQS queues.
 
 AWS Lambda functions automatically consume queue messages and process analytics events asynchronously.
 
-CloudWatch provides centralized monitoring and execution logging.
+CloudWatch provides centralized monitoring, execution visibility, and operational observability.
 
 ---
 
@@ -206,7 +271,7 @@ Runs:
 
 ---
 
-# Deployment Workflow
+## Deployment Workflow
 
 ```text
 Developer Push
@@ -219,7 +284,7 @@ Docker Image Build
       ↓
 DockerHub Push
       ↓
-Infra Deployment Trigger
+Infrastructure Deployment Trigger
       ↓
 Ansible Playbook
       ↓
@@ -248,12 +313,12 @@ The AWS-native event-driven architecture integrates CloudWatch and SNS-based ope
 
 Implemented monitoring capabilities include:
 
-* Lambda invocation monitoring
-* CloudWatch execution metrics
-* SNS email alert integration
-* Queue visibility monitoring
-* Application health checks
-* Event processing visibility
+- Lambda invocation monitoring
+- CloudWatch execution metrics
+- SNS email alert integration
+- Queue visibility monitoring
+- Application health checks
+- Event processing visibility
 
 A CloudWatch alarm monitors Lambda invocation traffic volume and automatically triggers SNS email notifications when invocation thresholds exceed configured limits.
 
