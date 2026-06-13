@@ -1,7 +1,5 @@
 # Architecture Documentation
 
----
-
 # Overview
 
 This project demonstrates the architecture and evolution of a full-stack event-driven EdTech learning platform built using React.js, Node.js, MongoDB, Redis, BullMQ, and AWS cloud services.
